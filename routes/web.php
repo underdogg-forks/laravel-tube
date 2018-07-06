@@ -16,3 +16,6 @@ Route::post('/upload','UploadController@store');
 
 Route::get('/search/{title}','VideoController@search');
 Route::get('/video/{id}','VideoController@show');
+
+Route::get('like/{video_id}','SocialController@like');
+Route::get('dislike/{video_id}','SocialController@dislike');
