@@ -17,10 +17,18 @@
     text-decoration: none;
 }
 
+.progress {
+    margin-top:10px !important;
+}
+.progress .sr-only { 
+    position: relative; 
+}
+
 .social-buttons{
+    margin-top:25px !important;
     color:white;
 }
 
 .description{
-    margin-top:5px;
+    margin-top:15px;
 }
