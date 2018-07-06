@@ -19,3 +19,7 @@ Route::get('/video/{id}','VideoController@show');
 
 Route::get('like/{video_id}','SocialController@like');
 Route::get('dislike/{video_id}','SocialController@dislike');
+
+Route::get('/account','AccountController@index');
+Route::get('/edit/{video_id}','AccountController@edit');
+Route::get('/delete/{video_id}','AccountController@delete');
