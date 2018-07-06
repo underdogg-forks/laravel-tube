@@ -16,7 +16,7 @@
     @include('inc.navbar')
     
     <main class="text-center">
-        <div style="margin-bottom:30px;"></div> 
+        <div style="margin-bottom:15px;"></div> 
         @include('inc.message')
         @yield('content')               
     </main>
