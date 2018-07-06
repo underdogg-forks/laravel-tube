@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use App\Models\User;
+use App\Models\Rate;
 
 class VideoController extends Controller
 {
@@ -25,8 +26,27 @@ class VideoController extends Controller
         $video = Video::find($id);
         if(!$video)
             return redirect('/')->with('danger','Video of id '.$id. 'not found');
+        
+        $positiveRates = $this->getPositiveRatesPercent($id);
+
         $creator = User::find($video->user_id);
-        $data = ['video' => $video, 'creator' => $creator];
+        $data = ['video' => $video, 'creator' => $creator,'positiveRates' => $positiveRates];
         return view('videos.show')->with('data',$data);
+    }
+
+    private function getPositiveRatesPercent($id){
+        
+        $positives = Rate::where([
+            'video_id' => $id,
+            'type' => 'L'
+        ])->get()->count();
+            
+        $negatives = Rate::where([
+            'video_id' => $id,
+            'type' => 'D'
+        ])->get()->count();
+        
+        if($positives+$negatives==0) return 0;
+        return $positives/($positives+$negatives)*100;
     }
 }
