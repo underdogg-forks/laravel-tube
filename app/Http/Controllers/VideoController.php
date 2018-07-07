@@ -34,6 +34,28 @@ class VideoController extends Controller
         return view('videos.show')->with('data',$data);
     }
 
+    public function edit(Request $request){
+        
+        $this->validate($request,[
+            'title' => 'required',
+            'description' => 'required',
+            'video_id' => 'required'
+        ]);
+
+        $video = Video::where([
+            'user_id' => auth()->user()->id,
+            'id' => $request->input('video_id')
+        ])->first();
+            
+        if(!$video)
+            return redirect('/account')->with('danger','Video not found');
+        
+        $video->title = $request->input('title');
+        $video->description = $request->input('description');
+        $video->save();
+        return redirect('/account')->with('success','Video updated');
+    }
+
     private function getPositiveRatesPercent($id){
         
         $positives = Rate::where([
