@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Rate;
 use App\Models\Video;
 
-class SocialController extends Controller
+class RatesController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
