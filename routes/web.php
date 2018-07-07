@@ -16,9 +16,10 @@ Route::post('/upload','UploadController@store');
 
 Route::get('/search/{title}','VideoController@search');
 Route::get('/video/{id}','VideoController@show');
+Route::post('/edit/','VideoController@edit');
 
-Route::get('like/{video_id}','SocialController@like');
-Route::get('dislike/{video_id}','SocialController@dislike');
+Route::get('like/{video_id}','RatesController@like');
+Route::get('dislike/{video_id}','RatesController@dislike');
 
 Route::get('/account','AccountController@index');
 Route::get('/edit/{video_id}','AccountController@edit');
