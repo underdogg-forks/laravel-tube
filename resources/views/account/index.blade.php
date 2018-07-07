@@ -11,10 +11,13 @@
             <div style='margin-top:25px;'></div>
             <ul class='list-group'>
                 <li class='list-group-item'> 
-                    <span class='lead'> {{ $video->title }} </span>
+                    <a class='lead video-link' href='/video/{{$video->id}}' style='margin-right:30px;'> 
                     
+                    {{ $video->title }} </a>
+
                     <a href="/edit/{{$video->id}}" class='btn btn-primary btn-sm pull-right' style='color:white;'>Edit</a>
                     <a href="/delete/{{$video->id}}" class='btn btn-danger btn-sm pull-right' style='color:white;'>Delete</a>
+                
                 </li>
             </ul>
         
