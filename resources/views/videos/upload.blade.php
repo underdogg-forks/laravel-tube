@@ -6,7 +6,7 @@
     
     <div style='margin-top:50px;'></div>
 
-   {!! Form::open(['action' => ['UploadController@store'], 'method'=> 'post',
+   {!! Form::open(['action' => ['Video\UploadController@store'], 'method'=> 'post',
       'class' => 'form-control','enctype' => 'multipart/form-data', 'style' => 'border:none;'
         ]) !!}
                                                 

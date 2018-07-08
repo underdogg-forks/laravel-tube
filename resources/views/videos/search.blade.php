@@ -1,6 +1,6 @@
 
 
-    {!! Form::open(['action' => ['VideoController@search','title'], 'method'=> 'get',
+    {!! Form::open(['action' => ['Video\VideoController@search','title'], 'method'=> 'get',
         'class' => 'form-inline', 'style' => 'border:none; '
     ]) !!}
                                                     

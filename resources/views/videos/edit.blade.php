@@ -6,7 +6,7 @@
     
     <div style='margin-top:50px;'></div>
 
-   {!! Form::open(['action' => ['VideoController@edit'], 'method'=> 'post',
+   {!! Form::open(['action' => ['Video\VideoController@edit'], 'method'=> 'post',
       'class' => 'form-control', 'style' => 'border:none;'
         ]) !!}
                                                 

@@ -7,7 +7,7 @@ use App\Models\Video;
 use App\Models\Rate;
 use Illuminate\Support\Facades\Storage;
 
-class AccountController extends Controller
+class DashboardController extends Controller
 {
     public function __construct(){
         $this->middleware('auth');
