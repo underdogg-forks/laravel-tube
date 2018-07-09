@@ -31,4 +31,17 @@
         at <small>{{ $data['video']->created_at }}  by {{ $data['creator']->name }}</small> 
     </div>
 
+     {!! Form::open(['action' => ['Social\CommentsController@store'], 'method'=> 'post',
+      'class' => 'form-control', 'style' => 'border:none;'
+        ]) !!}                                            
+
+    <div class="form-group">
+          {{ Form::textarea('content','',['class' => 'form-control','placeholder' => 'comment content'
+          , 'required'
+          ]) }}  
+    </div>
+    {{ Form::hidden('video_id',$data['video']->id) }}                                         
+    {{ Form::submit('Post',['class' => 'btn btn-success']) }}
+    {!! Form::close() !!}
+
 @endsection
