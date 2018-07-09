@@ -26,22 +26,16 @@
         </a>
     </div>
 
-    <div class='description'>
-        <p class='lead' style='margin:0;'>{{$data['video']->description }} </p>
-        at <small>{{ $data['video']->created_at }}  by {{ $data['creator']->name }}</small> 
-    </div>
-
-     {!! Form::open(['action' => ['Social\CommentsController@store'], 'method'=> 'post',
-      'class' => 'form-control', 'style' => 'border:none;'
-        ]) !!}                                            
-
-    <div class="form-group">
-          {{ Form::textarea('content','',['class' => 'form-control','placeholder' => 'comment content'
-          , 'required'
-          ]) }}  
-    </div>
-    {{ Form::hidden('video_id',$data['video']->id) }}                                         
-    {{ Form::submit('Post',['class' => 'btn btn-success']) }}
-    {!! Form::close() !!}
+    <p class='lead' style='cursor:pointer; margin-top:10px;' data-toggle='collapse' data-target='#description'>
+		Show video details </p>
+	
+	<div id='description' class='collapse alert-info text-center' style='padding:30px;'>
+			<p class='lead'>{{$data['video']->description }} </p>
+			at <small>{{ $data['video']->created_at }}  by {{ $data['creator']->name }}</small> 
+	
+	</div>
+    
+    @include('comments.create')
+    @include('comments.list')
 
 @endsection
