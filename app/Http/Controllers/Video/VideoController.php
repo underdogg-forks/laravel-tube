@@ -34,13 +34,19 @@ class VideoController extends Controller
     public function show($id){
         
         $video = $this->videoRepo->find($id);
+        
         if(!$video)
             return redirect('/')->with('danger','Video of id '.$id. 'not found');
-        
-        $likes = $this->getLikesPercentage($id);
 
-        $creator = User::find($video->user_id);
-        $data = ['video' => $video, 'creator' => $creator,'likes' => $likes];
+        $data = [
+            'video' => $video, 
+            'creator' =>  User::find($video->user_id),
+            'likes' => $this->rateRepo->countLikes($id),
+            'dislikes' => $this->rateRepo->countDislikes($id),
+            'proportion' => $this->rateRepo->getLikesPercentage($id)
+            
+        ];
+        
         return view('videos.show')->with('data',$data);
     }
 
@@ -57,19 +63,12 @@ class VideoController extends Controller
         if(!$video)
             return redirect('/account')->with('danger','Video not found');
         
-        $video->title = $request->input('title');
-        $video->description = $request->input('description');
-        $video->save();
+        $video->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description')
+        ]);
+        
         return redirect('/account')->with('success','Video updated');
     }
 
-    private function getLikesPercentage($id){
-        
-        $likes = $this->rateRepo->countLikes($id);
-        $dislikes = $this->rateRepo->countDislikes($id);
-        
-        if($likes+$dislikes==0) return 0;
-        
-        return $likes/($likes+$dislikes)*100;
-    }
 }

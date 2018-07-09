@@ -11,6 +11,17 @@ class RateRepository extends BaseRepository{
         $this->model = $model;
     }
 
+    public function getLikesPercentage($id){
+        
+        $likes = $this->countLikes($id);
+        $dislikes = $this->countDislikes($id);
+
+        if($likes+$dislikes==0) return 0;
+        
+        return $likes/($likes+$dislikes)*100;
+    }
+    
+    
     public function createAuthLike($video_id){
         
         return $this->model->create([
