@@ -4,14 +4,16 @@
 @section('content')
 
     <h1 class='display-2'> {{ $data['video']->title }} </h1>
-        
+    
+    <div style='margin-bottom:25px;'></div>
+
     <video width="80%" controls>
         <source src="/storage/videos/{{ $data['video']->name }}">
     </video>
 
     <div class="progress" style="margin-left:10%; width:80%;" >
-        <div class="progress-bar bg-success" role="progressbar" style="width:{{$data['positiveRates']}}%" 
-        aria-valuenow="{{$data['positiveRates']}}" aria-valuemin="0" aria-valuemax="100"></div>     
+        <div class="progress-bar bg-success" role="progressbar" style="width:{{$data['likes']}}%" 
+        aria-valuenow="{{$data['likes']}}" aria-valuemin="0" aria-valuemax="100"></div>     
     </div>
 
     <div class='social-buttons'>
