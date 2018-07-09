@@ -38,7 +38,11 @@ abstract class BaseRepository{
     public function delete($id){
         return $this->model->where('id','=',$id)->delete();
     }
-	
+    
+    public function deleteWhere($data){
+        return $this->model->where($data)->delete();
+    }
+    
 	public function truncate(){
 		return $this->model->truncate();
 	}
