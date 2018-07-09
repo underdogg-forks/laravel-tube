@@ -22,6 +22,7 @@ Route::post('/edit/','Video\VideoController@edit');
 
 Route::get('like/{video_id}','Social\RatesController@like');
 Route::get('dislike/{video_id}','Social\RatesController@dislike');
+Route::post('/video/','Social\CommentsController@store');
 
 Route::get('/account','DashboardController@index');
 Route::get('/edit/{video_id}','DashboardController@edit');
