@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Video;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Video;
+use App\Repositories\VideoRepository;
 
 class UploadController extends Controller
 {
-    public function __construct(){
+    private $videoRepo;
+
+    public function __construct(VideoRepository $videoRepo){
         $this->middleware('auth');
+        $this->videoRepo = $videoRepo;
     }
 
     public function index(){
@@ -32,7 +35,7 @@ class UploadController extends Controller
 
         $path = $request->file('video')->storeAs('public/videos',$fileNameToStore);
 
-        Video::create([
+        $this->videoRepo->create([
             'user_id' => auth()->user()->id,
             'title' => $request->input('title'),
             'description' => $request->input('description'),

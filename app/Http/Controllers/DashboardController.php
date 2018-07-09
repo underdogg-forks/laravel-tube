@@ -3,26 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Video;
-use App\Models\Rate;
 use Illuminate\Support\Facades\Storage;
 
+use App\Repositories\VideoRepository;
+use App\Models\Rate;
+
+
 class DashboardController extends Controller
-{
-    public function __construct(){
+{   
+    private $videoRepo;
+
+    public function __construct(VideoRepository $videoRepo){
         $this->middleware('auth');
+        $this->videoRepo = $videoRepo;
     }
 
     public function index(){
-        $videos = Video::where('user_id','=',auth()->user()->id)->get();
+        $videos = $this->videoRepo->getAuth();
         return view('account.index')->with('videos',$videos);
     }
 
     public function edit($video_id){
-        $video = Video::where([
-            'id' => $video_id,
-            'user_id' => auth()->user()->id    
-        ])->first();
+        $video = $this->videoRepo->findAuth($video_id);
         
         if(!$video)
             return redirect('/account')->with('danger','Video not found');
@@ -32,10 +34,7 @@ class DashboardController extends Controller
 
     public function delete($video_id){
         
-        $video = Video::where([
-            'user_id' => auth()->user()->id,
-            'id' => $video_id
-        ])->first();
+        $video = $this->videoRepo->findAuth($video_id);
         
         if(!$video)
             return redirect('/account')->with('danger','Video not found');
