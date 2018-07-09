@@ -12,6 +12,15 @@ abstract class BaseRepository{
         return $this->model->get($columns);
     }
 
+    public function getWhere($data){
+       return $this->model->where($data)->get();
+   
+    }
+
+    public function findWhere($data){
+        return $this->model->where($data)->first();
+    }
+
     public function create($data){
         return $this->model->create($data);
     }
