@@ -16,8 +16,8 @@ abstract class BaseRepository{
         return $this->model->create($data);
     }
 
-    public function update($data,$id){
-        return $this->model->where('id','=',$id)->update($data);
+    public function update($data){
+        return $this->model->update($data);
     }
 
     public function find($id){
