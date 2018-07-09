@@ -10,9 +10,6 @@ use App\Repositories\RateRepository;
 
 class RatesController extends Controller
 {   
-    private $videoRepo;
-    private $rateRepo;
-    
     public function __construct(VideoRepository $videoRepo, RateRepository $rateRepo){
         $this->middleware('auth');
         $this->videoRepo = $videoRepo;

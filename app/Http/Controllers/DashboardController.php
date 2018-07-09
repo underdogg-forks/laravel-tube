@@ -6,16 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use App\Repositories\VideoRepository;
-use App\Models\Rate;
+use App\Repositories\RateRepository;
 
 
 class DashboardController extends Controller
 {   
-    private $videoRepo;
-
-    public function __construct(VideoRepository $videoRepo){
+    public function __construct(VideoRepository $videoRepo, RateRepository $rateRepo){
         $this->middleware('auth');
         $this->videoRepo = $videoRepo;
+        $this->rateRepo = $rateRepo;
     }
 
     public function index(){
@@ -40,7 +39,7 @@ class DashboardController extends Controller
             return redirect('/account')->with('danger','Video not found');
 
         Storage::delete('public/videos/'.$video->name);
-        $rates = Rate::where('video_id','=',$video_id)->delete();
+        $rates = $this->rateRepo->deleteWhere('video_id','=',$video_id);
         $video->delete();
         return redirect('/account')->with('success','Video deleted');
     }

@@ -7,16 +7,17 @@ use App\Http\Controllers\Controller;
 
 use App\Repositories\VideoRepository;
 use App\Repositories\RateRepository;
+use App\Repositories\UserRepository;
 
-use App\Models\User;
 
 class VideoController extends Controller
-{   
-    private $videoRepo;
-    
-    public function __construct(VideoRepository $videoRepo,RateRepository $rateRepo){
+{       
+    public function __construct(VideoRepository $videoRepo,RateRepository $rateRepo, 
+    UserRepository $userRepo){
+        
         $this->videoRepo = $videoRepo;
         $this->rateRepo = $rateRepo;
+        $this->userRepo = $userRepo;
     }
     
     public function search(Request $request){
@@ -40,7 +41,7 @@ class VideoController extends Controller
 
         $data = [
             'video' => $video, 
-            'creator' =>  User::find($video->user_id),
+            'creator' =>  $this->userRepo->find($video->user_id),
             'likes' => $this->rateRepo->countLikes($id),
             'dislikes' => $this->rateRepo->countDislikes($id),
             'proportion' => $this->rateRepo->getLikesPercentage($id)

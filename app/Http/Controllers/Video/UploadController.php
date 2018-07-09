@@ -9,7 +9,6 @@ use App\Repositories\VideoRepository;
 
 class UploadController extends Controller
 {
-    private $videoRepo;
 
     public function __construct(VideoRepository $videoRepo){
         $this->middleware('auth');
