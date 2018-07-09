@@ -12,13 +12,18 @@
     </video>
 
     <div class="progress" style="margin-left:10%; width:80%;" >
-        <div class="progress-bar bg-success" role="progressbar" style="width:{{$data['likes']}}%" 
-        aria-valuenow="{{$data['likes']}}" aria-valuemin="0" aria-valuemax="100"></div>     
+        <div class="progress-bar bg-success" role="progressbar" style="width:{{$data['proportion']}}%" 
+        aria-valuenow="{{$data['proportion']}}" aria-valuemin="0" aria-valuemax="100"></div>     
     </div>
 
     <div class='social-buttons'>
-        <a class='btn btn-success btn-md' href='/like/{{$data['video']->id}}'>Like </a>
-        <a class='btn btn-danger btn-md'href='/dislike/{{$data['video']->id}}'> Dislike </a>
+        <a class='btn btn-success btn-md' href='/like/{{$data['video']->id}}'>
+            Like {{ $data['likes'] }} 
+        </a>
+        
+        <a class='btn btn-danger btn-md'href='/dislike/{{$data['video']->id}}'> 
+            Dislike {{ $data['dislikes'] }}
+        </a>
     </div>
 
     <div class='description'>
