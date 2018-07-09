@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 abstract class BaseRepository{
 
     protected $model;
-
+    
     public function getAll($columns = ['*']){
         return $this->model->get($columns);
     }
@@ -20,6 +20,10 @@ abstract class BaseRepository{
         return $this->model->where('id','=',$id)->update($data);
     }
 
+    public function find($id){
+        return $this->model->find($id);
+    }
+
     public function findAuth($id){
         return $this->model->where([
             'id' => $id,
@@ -27,8 +31,12 @@ abstract class BaseRepository{
         ])->first();
     }
 
-    public function delete(){
-        return $this->model->delete();
+    public function getAuth(){
+        return $this->model->where('user_id','=',auth()->user()->id)->get();
+    }
+
+    public function delete($id){
+        return $this->model->where('id','=',$id)->delete();
     }
 	
 	public function truncate(){
