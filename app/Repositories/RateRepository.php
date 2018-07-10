@@ -40,8 +40,12 @@ class RateRepository extends BaseRepository{
         ]);
     }
 
-    public function deleteRate($video_id){
-        $this->model->where('video_id','=',$video_id)->delete();
+    public function deleteRateAuth($video_id){
+        $this->model->where([
+            'video_id' => $video_id,
+            'user_id' => auth()->user()->id
+        ]
+        )->delete();
     }
     
     public function alreadyLiked($video_id){

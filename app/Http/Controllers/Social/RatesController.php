@@ -22,12 +22,12 @@ class RatesController extends Controller
             return redirect('/')->with('danger','Video not found');
 
         if($this->rateRepo->alreadyLiked($video_id)){
-            $this->rateRepo->deleteRate($video_id);
+            $this->rateRepo->deleteRateAuth($video_id);
             return redirect('/video/'.$video_id)->with('success','You no longer like this video !');
         }
 
         else if($this->rateRepo->alreadyDisliked($video_id)){
-            $this->rateRepo->deleteRate($video_id);
+            $this->rateRepo->deleteRateAuth($video_id);
         }
         
         $this->rateRepo->createAuthLike($video_id);
@@ -41,12 +41,12 @@ class RatesController extends Controller
             return redirect('/')->with('danger','Video not found');
 
         if($this->rateRepo->alreadyDisliked($video_id)){
-            $this->rateRepo->deleteRate($video_id);
+            $this->rateRepo->deleteRateAuth($video_id);
             return redirect('/video/'.$video_id)->with('success','You no longer dislike this video !');
         }
 
         else if($this->rateRepo->alreadyLiked($video_id)){
-            $this->rateRepo->deleteRate($video_id);
+            $this->rateRepo->deleteRateAuth($video_id);
         }
         
         $this->rateRepo->createAuthDislike($video_id);
