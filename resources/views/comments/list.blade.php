@@ -7,9 +7,10 @@
         
             @foreach($data['comments'] as $comment)
                 
-                <div class="card">
-                    <div class="card-body">
-                        {{ $comment->content }}
+                <div class='card' style='margin-bottom:15px;'>
+                    <div class='card-body'>
+                        <h5 class='card-title'> {{ $comment->creator_name }} </h5>
+                        <p class='card-text'>{{ $comment->content }} </p>
                     </div>
                 </div>
 
@@ -18,5 +19,4 @@
 
     @else <p class='lead'> This video has no comments </p>
 @endif
-
 

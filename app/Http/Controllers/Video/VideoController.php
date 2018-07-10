@@ -49,7 +49,7 @@ class VideoController extends Controller
             'proportion' => $this->rateRepo->getLikesPercentage($id),
             'comments' => $this->commentRepo->getVideoComments($id)
         ];
-
+    
         return view('videos.show')->with('data',$data);
     }
 

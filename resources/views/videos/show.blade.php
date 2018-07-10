@@ -35,7 +35,10 @@
 	
 	</div>
     
-    @include('comments.create')
+    @auth
+        @include('comments.create')
+    @endauth
+    
     @include('comments.list')
 
 @endsection
