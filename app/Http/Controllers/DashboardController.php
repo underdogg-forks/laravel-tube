@@ -39,6 +39,9 @@ class DashboardController extends Controller
             return redirect('/account')->with('danger','Video not found');
 
         Storage::delete('public/videos/'.$video->name);
+        
+        if($video->thumbnail!='default.png')
+            Storage::delete('public/thumbnails/'.$video->thumbnail);
         $rates = $this->rateRepo->deleteWhere('video_id','=',$video_id);
         $video->delete();
         return redirect('/account')->with('success','Video deleted');
