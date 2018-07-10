@@ -4,7 +4,7 @@
 @section('content')
     
     @if(count($videos) > 0 )
-        <h1 class='display-2'> Your videos  </h1> 
+        <h1 class='display-2'> Your videos (@php echo count($videos) @endphp) </h1> 
         
         @foreach($videos as $video)
             
@@ -22,9 +22,12 @@
             </ul>
         
         @endforeach
-    
-    @else <h1 class='display-2'> Your have no videos </h1>
-    
+
+        <div style='margin-top:20px;'></div>
+        <a href='/upload' class='btn btn-success btn-lg'> Upload more ! </a>
+    @else 
+        <h1 class='display-2'> Your have no videos </h1>
+        <a href='/upload' class='btn btn-success btn-lg'> Maybe upload some ? </a>
     @endif
 
 @endsection
