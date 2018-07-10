@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Video;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
+use App\Libraries\FileNameMaker;
 use App\Repositories\VideoRepository;
 use App\Repositories\RateRepository;
 use App\Repositories\UserRepository;
@@ -58,7 +60,8 @@ class VideoController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'description' => 'required',
-            'video_id' => 'required'
+            'video_id' => 'required',
+            'thumbnail' => 'image|nullable|max:1999'
         ]);
 
         $video = $this->videoRepo->findAuth($request->input('video_id'));
@@ -66,9 +69,20 @@ class VideoController extends Controller
         if(!$video)
             return redirect('/account')->with('danger','Video not found');
         
+        $imageName = $video->thumbnail;
+
+        if($request->hasFile('thumbnail')){
+            if($imageName!='default.png')
+                Storage::delete('public/thumbnails/'.$imageName);
+            $imageNameMaker = new FileNameMaker($request->file('thumbnail'));
+            $imageName = $imageNameMaker->getFileNameToStore();
+            $path = $request->file('thumbnail')->storeAs('public/thumbnails',$imageName);
+        }
+        
         $video->update([
             'title' => $request->input('title'),
-            'description' => $request->input('description')
+            'description' => $request->input('description'),
+            'thumbnail' => $imageName
         ]);
         
         return redirect('/account')->with('success','Video updated');
