@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Repositories\VideoRepository;
+use App\Libraries\FileNameMaker;
 
 class UploadController extends Controller
 {
@@ -26,20 +27,18 @@ class UploadController extends Controller
             'description' => 'required',
             'video' => 'required'
         ]);
-
-        $fileName = pathinfo($request->file('video')->getClientOriginalName(),PATHINFO_FILENAME);
-        $extenstion = $request->file('video')->getClientOriginalExtension();
-
-        $fileNameToStore = $fileName.'_'.time().'.'.$extenstion;
-
-        $path = $request->file('video')->storeAs('public/videos',$fileNameToStore);
-
+        
+        $fileMaker = new FileNameMaker($request->file('video'));
+    
         $this->videoRepo->create([
             'user_id' => auth()->user()->id,
             'title' => $request->input('title'),
             'description' => $request->input('description'),
-            'name' => $fileNameToStore
+            'name' => $fileMaker->getFileNameToStore(),
+            'thumbnail' => 'default.png'
         ]);
+        
+        $path = $request->file('video')->storeAs('public/videos',$fileMaker->getFileNameToStore());
 
         return redirect('/')->with('success','Your video has been uploaded');
     }
