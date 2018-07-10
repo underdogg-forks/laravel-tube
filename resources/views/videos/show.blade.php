@@ -9,7 +9,7 @@
 
       
       <video id="my_video_1" class="video-js vjs-default-skin" width="80%"
-      controls preload="none" poster='/storage/thumbnails/default.png'
+      controls preload="none" poster='/storage/thumbnails/{{$data['video']->thumbnail}}'
       data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
         <source src='/storage/videos/{{ $data['video']->name }}' >
     </video>
