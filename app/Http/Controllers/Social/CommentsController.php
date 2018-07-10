@@ -34,4 +34,42 @@ class CommentsController extends Controller
 
         return redirect('/video/'.$request->input('video_id'))->with('success','Comment added');
     }
+
+    public function delete($id){
+        $comment = $this->commentRepo->findAuth($id);
+        if(!$comment)
+            return redirect('/')->with('danger','Comment not found');
+        $video_id = $comment->video_id;
+        
+        $comment->delete();
+        return redirect('/video/'.$video_id)->with('success','Comment deleted');
+    }
+
+    public function edit($id){
+        
+        $comment = $this->commentRepo->findAuth($id);
+        if(!$comment)
+            return redirect('/')->with('danger','Comment not found');
+        
+        return view('comments.edit')->with('comment',$comment);
+    }
+
+    public function update(Request $request){
+        
+        $this->validate($request,[
+            'content' => 'required',
+            'video_id' => 'required',
+            'comment_id'  => 'required'
+        ]);
+
+        $comment = $this->commentRepo->findAuth($request->input('comment_id'));
+        if(!$comment)
+            return redirect('/')->with('danger','Comment not found');
+        
+        $comment->update([
+            'content' => $request->input('content')
+        ]);
+
+        return redirect('/video/'.$request->input('video_id'))->with('success','Comment updated');
+    }
 }
