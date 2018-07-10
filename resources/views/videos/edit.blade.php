@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.upload')
 
 @section('title') Edit your video @endsection
 
@@ -7,7 +7,7 @@
     <div style='margin-top:50px;'></div>
 
    {!! Form::open(['action' => ['Video\VideoController@edit'], 'method'=> 'post',
-      'class' => 'form-control', 'style' => 'border:none;'
+      'class' => 'form-control','enctype' => 'multipart/form-data', 'style' => 'border:none;'
         ]) !!}
                                                 
         <div class="form-group">
@@ -20,9 +20,18 @@
           {{ Form::textarea('description',$video->description,['class' => 'form-control','placeholder' => 'description'
           , 'required'
           ]) }}  
-        </div>    
+        </div>  
+        <div class="form-group">
+          {{Form::label('thumbnail','Thumbnail') }}
+          {{ Form::file('thumbnail', ['class' => 'form-control','required']) }}  
+        </div>  
+        
         {{ Form::hidden('video_id',$video->id) }}                                            
-        {{ Form::submit('Save changes',['class' => 'btn btn-success']) }}
+        
+        <div class='text-center'>
+            {{ Form::submit('Save changes',['class' => 'btn btn-success']) }}
+        </div>
+
         {!! Form::close() !!}
 
 @endsection
