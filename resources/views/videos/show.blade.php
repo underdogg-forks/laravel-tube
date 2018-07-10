@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.video')
 @section('title') {{ $data['video']->title }} @endsection
 
 @section('content')
@@ -7,8 +7,11 @@
     
     <div style='margin-bottom:25px;'></div>
 
-    <video width="80%" controls>
-        <source src="/storage/videos/{{ $data['video']->name }}">
+      
+      <video id="my_video_1" class="video-js vjs-default-skin" width="80%"
+      controls preload="none" poster='/storage/posters/default.png'
+      data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
+        <source src='/storage/videos/{{ $data['video']->name }}' >
     </video>
 
     <div class="progress" style="margin-left:10%; width:80%;" >
@@ -29,10 +32,9 @@
     <p class='lead' style='cursor:pointer; margin-top:10px;' data-toggle='collapse' data-target='#description'>
 		Show video details </p>
 	
-	<div id='description' class='collapse alert-info text-center' style='padding:30px;'>
+	<div id='description' class='collapse alert-info text-center'>
 			<p class='lead'>{{$data['video']->description }} </p>
 			at <small>{{ $data['video']->created_at }}  by {{ $data['creator']->name }}</small> 
-	
 	</div>
     
     @auth
@@ -41,4 +43,5 @@
     
     @include('comments.list')
 
+    <script src="https://vjs.zencdn.net/7.0.5/video.js"></script>
 @endsection
