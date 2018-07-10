@@ -1,7 +1,7 @@
  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
                 
                 <a class="navbar-brand" href="{{ url('/') }}" style="margin-right:30px;">
-                    Youtube
+                    Lartube
                 </a>
 
                 @include('videos.search')
