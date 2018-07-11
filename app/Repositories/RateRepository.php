@@ -18,7 +18,7 @@ class RateRepository extends BaseRepository{
 
         if($likes+$dislikes==0) return 0;
         
-        return $likes/($likes+$dislikes)*100;
+        return round($likes/($likes+$dislikes)*100,2);
     }
     
     
