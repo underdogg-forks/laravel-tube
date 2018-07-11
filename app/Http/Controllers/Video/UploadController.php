@@ -34,20 +34,22 @@ class UploadController extends Controller
         if($request->hasFile('thumbnail')){
             $imageNameMaker = new FileNameMaker($request->file('thumbnail'));
             $imageName = $imageNameMaker->getFileNameToStore();
-            $path = $request->file('video')->storeAs('public/thumbnails',$imageName);
+            $path = $request->file('thumbnail')->storeAs('public/thumbnails',$imageName);
         }
         
         $videoNameMaker = new FileNameMaker($request->file('video'));
-    
+        
+        $videoName = $videoNameMaker->getFileNameToStore();
+
         $this->videoRepo->create([
             'user_id' => auth()->user()->id,
             'title' => $request->input('title'),
             'description' => $request->input('description'),
-            'name' => $videoNameMaker->getFileNameToStore(),
+            'name' => $videoName,
             'thumbnail' => $imageName
         ]);
         
-        $path = $request->file('video')->storeAs('public/videos',$videoNameMaker->getFileNameToStore());
+        $path = $request->file('video')->storeAs('public/videos',$videoName);
 
         return redirect('/account')->with('success','Your video has been uploaded');
     }    
