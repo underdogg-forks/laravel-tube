@@ -37,7 +37,6 @@ class VideoController extends Controller
     }
 
     public function show($id){
-        
         $video = $this->videoRepo->find($id);
         
         if(!$video)
@@ -51,7 +50,7 @@ class VideoController extends Controller
             'proportion' => $this->rateRepo->getLikesPercentage($id),
             'comments' => $this->commentRepo->getVideoComments($id)
         ];
-    
+
         return view('videos.show')->with('data',$data);
     }
 
@@ -86,6 +85,24 @@ class VideoController extends Controller
         ]);
         
         return redirect('/account')->with('success','Video updated');
+    }
+
+    public function delete($video_id){
+        
+        $video = $this->videoRepo->findAuth($video_id);
+        
+        if(!$video)
+            return redirect('/account')->with('danger','Video not found');
+
+        Storage::delete('public/videos/'.$video->name);
+        
+        if($video->thumbnail!='default.png')
+            Storage::delete('public/thumbnails/'.$video->thumbnail);
+        
+        $rates = $this->rateRepo->deleteWhere(['video_id' => $video_id ]);
+        $comments = $this->commentRepo->deleteWhere(['video_id' => $video_id]);
+        $video->delete();
+        return redirect('/account')->with('success','Video deleted');
     }
 
 }
