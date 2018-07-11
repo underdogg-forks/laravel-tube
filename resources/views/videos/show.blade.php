@@ -11,7 +11,7 @@
       <video id="my_video_1" class="video-js vjs-default-skin" width="80%"
       controls preload="none" poster='/storage/thumbnails/{{$data['video']->thumbnail}}'
       data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
-        <source src='/storage/videos/{{ $data['video']->name }}' >
+        <source src='/storage/videos/{{$data['video']->name}}' >
     </video>
 
     <div class="progress" style="margin-left:10%; width:80%;" >
@@ -27,6 +27,13 @@
         <a class='btn btn-danger btn-md'href='/dislike/{{$data['video']->id}}'> 
             Dislike {{ $data['dislikes'] }}
         </a>
+
+        @if($data['video']->user_id == auth()->user()->id)
+             <span style='margin-left:5px;'>
+             <a class='btn btn-primary btn-md'href='/edit/{{$data['video']->id}}'> 
+                Edit 
+            </a>
+        @endif
     </div>
 
     <p class='lead' style='cursor:pointer; margin-top:10px;' data-toggle='collapse' data-target='#description'>
