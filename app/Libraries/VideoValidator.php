@@ -31,9 +31,11 @@ class VideoValidator
         $extensions = '';
         
         for($i=0; $i<count($this->validExtensions); $i++)
-            $extensions.= $this->validExtensions[$i].', '; 
+            $extensions.= $this->validExtensions[$i].' '.','; 
         
-        return $extensions;
+        $extensions = (substr($extensions,-1) == ',') ? substr($extensions, 0, -1) : $extensions;
+        $extensions = (substr($extensions,-1) == ' ') ? substr($extensions, 0, -1) : $extensions;
+        return $extensions.'.';
     }
 
 
