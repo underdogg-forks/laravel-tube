@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Repositories\VideoRepository;
 use App\Libraries\FileNameMaker;
+use App\Libraries\VideoValidator;
 
 class UploadController extends Controller
 {
@@ -28,7 +29,13 @@ class UploadController extends Controller
             'video' => 'required',
             'thumbnail' => 'image|nullable|max:1999'
         ]);
-
+        
+        $videoValidator = new VideoValidator($request->file('video'));
+        
+        if(!$videoValidator->validate())
+            return redirect('/upload')->with('danger',$videoValidator->getRedirectErrorMessage());
+        
+        
         $imageName =  'default.png';
 
         if($request->hasFile('thumbnail')){
