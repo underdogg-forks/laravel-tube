@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile as UploadedFile;
 
 class FileNameMaker
