@@ -49,7 +49,7 @@ class UploadController extends Controller
         
         $path = $request->file('video')->storeAs('public/videos',$videoNameMaker->getFileNameToStore());
 
-        return redirect('/')->with('success','Your video has been uploaded');
+        return redirect('/account')->with('success','Your video has been uploaded');
     }    
 
 }
