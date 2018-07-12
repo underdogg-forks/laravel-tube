@@ -10,15 +10,19 @@ use App\Libraries\FileNameMaker;
 use App\Repositories\VideoRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CommentRepository;
+
 use App\Repositories\Rate\VideoRateRepository;
+use App\Repositories\Rate\CommentRateRepository;
+
 
 class VideoController extends Controller
 {       
-    public function __construct(VideoRepository $videoRepo,VideoRateRepository $rateRepo, 
-    UserRepository $userRepo, CommentRepository $commentRepo ){
+    public function __construct(VideoRepository $videoRepo,VideoRateRepository $videoRate, 
+    UserRepository $userRepo, CommentRepository $commentRepo,CommentRateRepository $commentRate ){
         
         $this->videoRepo = $videoRepo;
-        $this->rateRepo = $rateRepo;
+        $this->videoRate = $videoRate;
+        $this->commentRate = $commentRate;
         $this->userRepo = $userRepo;
         $this->commentRepo = $commentRepo;
     }
@@ -44,9 +48,9 @@ class VideoController extends Controller
         $data = [
             'video' => $video, 
             'creator' =>  $this->userRepo->find($video->user_id),
-            'likes' => $this->rateRepo->countLikes($id),
-            'dislikes' => $this->rateRepo->countDislikes($id),
-            'proportion' => $this->rateRepo->getLikesPercentage($id),
+            'likes' => $this->videoRate->countLikes($id),
+            'dislikes' => $this->videoRate->countDislikes($id),
+            'proportion' => $this->videoRate->getLikesPercentage($id),
             'comments' => $this->commentRepo->getVideoComments($id)
         ];
 
@@ -99,8 +103,14 @@ class VideoController extends Controller
         if($video->thumbnail!='default.png')
             Storage::delete('public/thumbnails/'.$video->thumbnail);
         
-        $rates = $this->rateRepo->deleteWhere(['video_id' => $video_id ]);
-        $comments = $this->commentRepo->deleteWhere(['video_id' => $video_id]);
+        $this->videoRate->deleteWhere(['video_id' => $video_id ]);
+        $videoComments = $this->commentRepo->getWhere(['video_id' => $video_id]);
+        
+        foreach($videoComments as $comment){
+            $this->commentRate->deleteWhere(['comment_id' => $comment->id]);
+            $comment->delete();
+        }
+        
         $video->delete();
         return redirect('/account')->with('success','Video deleted');
     }
