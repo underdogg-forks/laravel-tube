@@ -1,8 +1,9 @@
 <?php 
 
-namespace App\Repositories;
+namespace App\Repositories\Rate;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\BaseRepository;
 use App\Models\VideoRate;
 
 class VideoRateRepository extends BaseRepository{
