@@ -15,13 +15,22 @@
                         
                         @auth
                             @if($comment->user_id == auth()->user()->id)
-                                <a class='btn btn-sm btn-primary' href='/comment/edit/{{$comment->id}}'>
+                                <a class='btn btn-md btn-primary' href='/comment/edit/{{$comment->id}}'>
                                     Edit 
                                 </a>
                                 
-                                <a class='btn btn-sm btn-danger' href='/comment/delete/{{$comment->id}}'>
+                                <a class='btn btn-md btn-danger' href='/comment/delete/{{$comment->id}}'>
                                     Delete 
                                 </a>
+                            @else
+                                
+                                <a class='btn btn-sm btn-success' 
+                                href='/comment/like/{{$comment->id}}'>Like {{$comment->likes}} </a>
+
+                                
+                                <a class='btn btn-sm btn-danger' 
+                                href='/comment/dislike/{{$comment->id}}'>Dislike  {{$comment->dislikes}} </a>
+
                             @endif
                         @endauth    
                     </div>
