@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Libraries\FileNameMaker;
 use App\Repositories\VideoRepository;
-use App\Repositories\RateRepository;
+use App\Repositories\VideoRateRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CommentRepository;
 
 
 class VideoController extends Controller
 {       
-    public function __construct(VideoRepository $videoRepo,RateRepository $rateRepo, 
+    public function __construct(VideoRepository $videoRepo,VideoRateRepository $rateRepo, 
     UserRepository $userRepo, CommentRepository $commentRepo ){
         
         $this->videoRepo = $videoRepo;

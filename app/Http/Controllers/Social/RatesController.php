@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Repositories\VideoRepository;
-use App\Repositories\RateRepository;
+use App\Repositories\VideoRateRepository;
 
 class RatesController extends Controller
 {   
-    public function __construct(VideoRepository $videoRepo, RateRepository $rateRepo){
+    public function __construct(VideoRepository $videoRepo, VideoRateRepository $rateRepo){
         $this->middleware('auth');
         $this->videoRepo = $videoRepo;
         $this->rateRepo = $rateRepo;
