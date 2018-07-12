@@ -3,11 +3,11 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Rate;
+use App\Models\VideoRate;
 
-class RateRepository extends BaseRepository{
+class VideoRateRepository extends BaseRepository{
 
-    public function __construct(Rate $model){
+    public function __construct(VideoRate $model){
         $this->model = $model;
     }
 

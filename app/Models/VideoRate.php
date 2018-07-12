@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rate extends Model
+class VideoRate extends Model
 {
-    public $table = 'rates';
+    public $table = 'video_rates';
     public $timestamps = false;
     public $guarded = ['id'];
 }
