@@ -8,11 +8,11 @@
     color:#0056b3;
 }
 
-.video-link{
+.pure-link{
     color:black !important;
     text-decoration: none;
 }
-.video-link:hover{
+.pure-link:hover{
     color:black;
     text-decoration: none;
 }

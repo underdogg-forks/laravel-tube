@@ -11,7 +11,7 @@
             <div style='margin-top:25px;'></div>
             <ul class='list-group'>
                 <li class='list-group-item'> 
-                    <a class='lead video-link' href='/video/{{$video->id}}' style='margin-right:30px;'> 
+                    <a class='lead pure-link' href='/video/{{$video->id}}' style='margin-right:30px;'> 
                     
                     {{ $video->title }} </a>
 

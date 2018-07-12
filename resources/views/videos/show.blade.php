@@ -27,13 +27,15 @@
         <a class='btn btn-danger btn-md'href='/dislike/{{$data['video']->id}}'> 
             Dislike {{ $data['dislikes'] }}
         </a>
-
-        @if($data['video']->user_id == auth()->user()->id)
-             <span style='margin-left:5px;'>
-             <a class='btn btn-primary btn-md'href='/edit/{{$data['video']->id}}'> 
-                Edit 
-            </a>
-        @endif
+        
+        @auth
+            @if($data['video']->user_id == auth()->user()->id)
+                <span style='margin-left:5px;'>
+                <a class='btn btn-primary btn-md'href='/edit/{{$data['video']->id}}'> 
+                    Edit 
+                </a>
+            @endif
+        @endauth
     </div>
 
     <p class='lead' style='cursor:pointer; margin-top:10px;' data-toggle='collapse' data-target='#description'>
@@ -44,9 +46,11 @@
 			at <small>{{ $data['video']->created_at }}  by {{ $data['creator']->name }}</small> 
 	</div>
     
-    @auth
+    @if(Auth::check())
         @include('comments.create')
-    @endauth
+    @else
+        <p class='lead'>Login to write comments </p>
+    @endif
     
     @include('comments.list')
 
