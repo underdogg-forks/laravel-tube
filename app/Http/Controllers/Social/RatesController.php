@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Repositories\VideoRepository;
-use App\Repositories\VideoRateRepository;
+use App\Repositories\Rate\VideoRateRepository;
 
 class RatesController extends Controller
 {   

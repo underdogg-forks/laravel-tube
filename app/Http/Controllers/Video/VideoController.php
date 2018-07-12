@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Libraries\FileNameMaker;
 use App\Repositories\VideoRepository;
-use App\Repositories\VideoRateRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\CommentRepository;
-
+use App\Repositories\Rate\VideoRateRepository;
 
 class VideoController extends Controller
 {       
@@ -73,6 +72,7 @@ class VideoController extends Controller
         if($request->hasFile('thumbnail')){
             if($imageName!='default.png')
                 Storage::delete('public/thumbnails/'.$imageName);
+            
             $imageNameMaker = new FileNameMaker($request->file('thumbnail'));
             $imageName = $imageNameMaker->getFileNameToStore();
             $path = $request->file('thumbnail')->storeAs('public/thumbnails',$imageName);
