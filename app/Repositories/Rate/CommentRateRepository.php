@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Repositories\BaseRepository;
 use App\Models\CommentRate;
 
-class VideoRateRepository extends BaseRepository{
+class CommentRateRepository extends BaseRepository{
 
     public function __construct(CommentRate $model){
         $this->model = $model;
