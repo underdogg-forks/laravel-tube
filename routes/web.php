@@ -4,10 +4,6 @@ Auth::routes();
 
 Route::get('logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 
-Route::get('/home', function(){
-	return redirect('/');
-});
-
 Route::get('/',function(){
 	return view('welcome');
 });
